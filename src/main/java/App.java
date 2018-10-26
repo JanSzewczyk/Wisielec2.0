@@ -1,5 +1,8 @@
+import Controller.DownloadFile;
+import Model.WordList;
 import View.MainWindow;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -131,6 +134,13 @@ public class App {
     */
 
     public static void main(String[] args) throws IOException {
-        MainWindow main = new MainWindow();
+        //MainWindow main = new MainWindow();
+
+
+       WordList elo = new WordList();
+       elo.show();
+
+
+
     }
 }
