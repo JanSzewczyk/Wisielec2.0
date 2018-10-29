@@ -73,26 +73,29 @@ public class MainWindow extends JFrame implements ActionListener {
 
         if (source == BCheck) {
             if(((String)TWord.getText()).equals("")) {
-
+                miss++;
             } else if(((String)TWord.getText()).length() == 1) {
-
-                WORD = WC.wordControl(WORD,W,((String)TWord.getText()).toLowerCase());
-                LWord.setText(WORD);
-                TWord.setText("");
-                if(WC.checkWord(W,WORD)){
-                    System.out.println("Wygrałeś");
-                }
-
+                    if(WC.checkWord(W, (String) TWord.getText())) {
+                        WORD = WC.wordControl(WORD, W, ((String) TWord.getText()).toLowerCase());
+                        LWord.setText(WORD);
+                        TWord.setText("");
+                        if (WC.checkWord(W, WORD)) {
+                            System.out.println("Wygrałeś");
+                        }
+                    } else {
+                        miss++;
+                        TWord.setText("");
+                    }
             } else {
-                WORD = ((String)TWord.getText()).toLowerCase();
-                if(WC.checkWord(W,WORD)){
-                    //TWord.setText("");
+                if(WC.checkWord(W,((String)TWord.getText()).toLowerCase())){
+                    WORD = ((String)TWord.getText()).toLowerCase();
+                    TWord.setText("");
                     LWord.setText(WORD);
-                    System.out.println("Wygrałeś");
+                    System.out.println("Wygrałeś");                                                 //Tu się cos pierdoli X(
                 } else{
+                    TWord.setText("");
                     miss++;
                 }
-                TWord.setText("");
             }
             System.out.println("MISS :" + miss);
 

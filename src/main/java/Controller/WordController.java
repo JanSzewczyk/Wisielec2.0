@@ -10,6 +10,7 @@ public class WordController {
             WORD += "_";
         return WORD;
     }
+
     public String wordControl(String word, Word W, String guess) {
         String newWORD = "";
         System.out.println(word);
@@ -26,9 +27,16 @@ public class WordController {
     }
 
     public boolean checkWord(Word W, String word) {
-        if(W.getWORD().equals(word)) {
-            return true;
+        if(word.length() == 1) {
+            for (int i = 0; i < W.getLength(); i++)
+                if(W.getWORD().charAt(i) ==  word.charAt(0))
+                    return true;
+        } else {
+            if (W.getWORD().equals(word)) {
+                return true;
+            }
         }
-         return false;
+        return false;
     }
+
 }
