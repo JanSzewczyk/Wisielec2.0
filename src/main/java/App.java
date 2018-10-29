@@ -134,13 +134,7 @@ public class App {
     */
 
     public static void main(String[] args) throws IOException {
-        //MainWindow main = new MainWindow();
-
-
-       WordList elo = new WordList();
-       elo.show();
-
-
+        MainWindow main = new MainWindow();
 
     }
 }
