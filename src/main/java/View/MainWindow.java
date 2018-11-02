@@ -17,15 +17,17 @@ public class MainWindow extends JFrame implements ActionListener {
     private WordController WC;
     private WordList WL;
     private Word W;
+    private HangmanPicture picture;
 
     private String WORD;
     private int miss = 0;
+
     public Font fontTitle, fontWord;
     private JLabel LTitle, LWord;
     private JTextField TWord;
     private JButton BCheck;
 
-    // TODO: 25.10.2018 implement main window of application
+    // TODO: 25.10.2018 show componend of hang
 
     public MainWindow() throws IOException {
         WL = new WordList();
@@ -36,6 +38,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.WORD = WC.setWord(W);
 
         System.out.println(W.getLength());
+
         setSize(1000, 600);
         setTitle("Shape Generator");
         setLayout(null);
@@ -59,9 +62,9 @@ public class MainWindow extends JFrame implements ActionListener {
         add(BCheck);
         BCheck.addActionListener(this);
 
-        HangmanPicture elo = new HangmanPicture();
-        elo.setBounds(500,30,512,512);
-        add(elo);
+        picture = new HangmanPicture();
+        picture.setBounds(500,30,512,512);
+        add(picture);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -80,7 +83,8 @@ public class MainWindow extends JFrame implements ActionListener {
                         LWord.setText(WORD);
                         TWord.setText("");
                         if (WC.checkWord(W, WORD)) {
-                            System.out.println("Wygrałeś");
+                           // System.out.println("Wygrałeś");
+                            endGame("WYGRAŁEŚ", W.getWORD());
                         }
                     } else {
                         miss++;
@@ -91,7 +95,8 @@ public class MainWindow extends JFrame implements ActionListener {
                     WORD = ((String)TWord.getText()).toLowerCase();
                     TWord.setText("");
                     LWord.setText(WORD);
-                    System.out.println("Wygrałeś");                                                 //Tu się cos pierdoli X(
+                    System.out.println("Wygrałeś");
+                    endGame("WYGRAŁEŚ", W.getWORD());
                 } else{
                     TWord.setText("");
                     miss++;
@@ -99,9 +104,15 @@ public class MainWindow extends JFrame implements ActionListener {
             }
             System.out.println("MISS :" + miss);
 
+            try {
+                picture.nextPic(miss);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
             if(miss == 7) {
-                System.out.println("Przejebałeś");
                 LWord.setText(W.getWORD());
+                endGame("PZEGRAŁEŚ", W.getWORD());
             }
         }
 
@@ -116,5 +127,25 @@ public class MainWindow extends JFrame implements ActionListener {
         } catch (FontFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    private void endGame(String s, String w) {
+        // TODO: 30.10.2018 joptionpane
+        int ask = JOptionPane.showConfirmDialog(null, s + "\nHasło to: " + w + "\nCzy chcesz zagrać ponownie ?", "Konic gry", JOptionPane.YES_NO_OPTION);
+
+        if(ask == JOptionPane.YES_OPTION){
+            W = new Word(WL.getWord());
+            this.WORD = WC.setWord(W);
+            LWord.setText(this.WORD);
+            this.miss = 0;
+
+        } else {
+            System.exit(0);
+        }
+
+
+
+
+
     }
 }
