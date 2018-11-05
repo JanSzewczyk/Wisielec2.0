@@ -13,19 +13,17 @@ public class HangmanPicture extends JLabel {
     private ImageIcon imgIcon;
 
     public HangmanPicture() throws IOException {
-/*
-        file = new File("src/main/resources/hangman7.png");
+        file = new File("src/main/resources/hangman0.png");
         bi = ImageIO.read(file);
         imgIcon = new ImageIcon(bi);
         setIcon(imgIcon);
-*/
     }
 
     public void nextPic(int number) throws IOException {
         String path = "";
-        if(number != 0) {
-            switch (number) {
-                case 0:
+
+        switch (number) {
+            case 0:
                     path = "src/main/resources/hangman0.png";
                     break;
                 case 1:
@@ -49,13 +47,11 @@ public class HangmanPicture extends JLabel {
                 case 7:
                     path = "src/main/resources/hangman7.png";
                     break;
-            }
-
-            file = new File(path);
-            bi = ImageIO.read(file);
-            imgIcon = new ImageIcon(bi);
-            setIcon(imgIcon);
         }
 
+        file = new File(path);
+        bi = ImageIO.read(file);
+        imgIcon = new ImageIcon(bi);
+        setIcon(imgIcon);
     }
 }

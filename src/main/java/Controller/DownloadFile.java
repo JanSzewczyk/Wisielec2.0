@@ -14,10 +14,8 @@ public class DownloadFile {
         this.LIST = new ArrayList<String>();
 
         try {
-            // Uworzenie obiektu FileReader
             FileReader fileReader = new FileReader(filePath);
 
-            // Utworzenie obiektu bufferReader
             BufferedReader bufferReader = new BufferedReader(fileReader);
 
             String word;

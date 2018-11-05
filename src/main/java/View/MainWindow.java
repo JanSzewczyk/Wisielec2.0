@@ -27,8 +27,6 @@ public class MainWindow extends JFrame implements ActionListener {
     private JTextField TWord;
     private JButton BCheck;
 
-    // TODO: 25.10.2018 show componend of hang
-
     public MainWindow() throws IOException {
         WL = new WordList();
         W = new Word(WL.getWord());
@@ -83,7 +81,6 @@ public class MainWindow extends JFrame implements ActionListener {
                         LWord.setText(WORD);
                         TWord.setText("");
                         if (WC.checkWord(W, WORD)) {
-                           // System.out.println("Wygrałeś");
                             endGame("WYGRAŁEŚ", W.getWORD());
                         }
                     } else {
@@ -95,13 +92,13 @@ public class MainWindow extends JFrame implements ActionListener {
                     WORD = ((String)TWord.getText()).toLowerCase();
                     TWord.setText("");
                     LWord.setText(WORD);
-                    System.out.println("Wygrałeś");
                     endGame("WYGRAŁEŚ", W.getWORD());
                 } else{
                     TWord.setText("");
                     miss++;
                 }
             }
+
             System.out.println("MISS :" + miss);
 
             try {
@@ -130,7 +127,6 @@ public class MainWindow extends JFrame implements ActionListener {
     }
 
     private void endGame(String s, String w) {
-        // TODO: 30.10.2018 joptionpane
         int ask = JOptionPane.showConfirmDialog(null, s + "\nHasło to: " + w + "\nCzy chcesz zagrać ponownie ?", "Konic gry", JOptionPane.YES_NO_OPTION);
 
         if(ask == JOptionPane.YES_OPTION){
@@ -139,13 +135,16 @@ public class MainWindow extends JFrame implements ActionListener {
             LWord.setText(this.WORD);
             this.miss = 0;
 
+            try {
+                picture.nextPic(miss);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             System.exit(0);
         }
 
 
-
-
-
     }
+
 }
