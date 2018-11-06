@@ -109,7 +109,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
             if(miss == 7) {
                 LWord.setText(W.getWORD());
-                endGame("PZEGRAŁEŚ", W.getWORD());
+                endGame("PRZEGRAŁEŚ", W.getWORD());
             }
         }
 
