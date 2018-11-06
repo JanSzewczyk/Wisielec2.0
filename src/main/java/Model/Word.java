@@ -1,8 +1,7 @@
 package Model;
 
 public class Word {
-    String WORD;
-    // TODO: 25.10.2018 implement word class
+    private String WORD;
 
     public Word(String word) {
         this.WORD = word;
