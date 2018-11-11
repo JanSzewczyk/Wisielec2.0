@@ -5,7 +5,6 @@ public class Word {
 
     public Word(String word) {
         this.WORD = word;
-        System.out.println(this.WORD);
     }
     public String getWORD() {
         return this.WORD;

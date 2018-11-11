@@ -13,7 +13,6 @@ public class WordController {
 
     public String wordControl(String word, Word W, String guess) {
         String newWORD = "";
-        System.out.println(word);
         for (int i = 0; i < word.length(); i++) {
             if(word.charAt(i) != '_'){
                 newWORD += word.charAt(i);

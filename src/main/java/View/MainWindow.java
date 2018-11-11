@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainWindow extends JFrame implements ActionListener {
@@ -19,11 +21,12 @@ public class MainWindow extends JFrame implements ActionListener {
     private Word W;
     private HangmanPicture picture;
 
+    private String UsW = "";
     private String WORD;
     private int miss = 0;
 
-    public Font fontTitle, fontWord;
-    private JLabel LTitle, LWord;
+    public Font fontTitle, fontWord, fontUsW;
+    private JLabel LTitle, LWord, LUsW;
     private JTextField TWord;
     private JButton BCheck;
 
@@ -33,7 +36,7 @@ public class MainWindow extends JFrame implements ActionListener {
         WC = new WordController();
         setFont();
 
-        this.WORD = WC.setWord(W);
+        WORD = WC.setWord(W);
 
         setSize(1000, 600);
         setTitle("Shape Generator");
@@ -60,6 +63,11 @@ public class MainWindow extends JFrame implements ActionListener {
         add(BCheck);
         BCheck.addActionListener(this);
 
+        LUsW = new JLabel();
+        LUsW.setFont(fontUsW);
+        LUsW.setBounds(10,500,300,40);
+        add(LUsW);
+
         picture = new HangmanPicture();
         picture.setBounds(500,30,512,512);
         add(picture);
@@ -76,7 +84,7 @@ public class MainWindow extends JFrame implements ActionListener {
             if(((String)TWord.getText()).equals("")) {
                 miss++;
             } else if(((String)TWord.getText()).length() == 1) {
-                    if(WC.checkWord(W, (String) TWord.getText())) {
+                    if(WC.checkWord(W, ((String) TWord.getText().toLowerCase()))) {
                         WORD = WC.wordControl(WORD, W, ((String) TWord.getText()).toLowerCase());
                         LWord.setText(WORD);
                         TWord.setText("");
@@ -85,21 +93,23 @@ public class MainWindow extends JFrame implements ActionListener {
                         }
                     } else {
                         miss++;
+                        UsW += (String) TWord.getText() + ", ";
+                        LUsW.setText("Źle: " + UsW);
                         TWord.setText("");
                     }
             } else {
-                if(WC.checkWord(W,((String)TWord.getText()).toLowerCase())){
-                    WORD = ((String)TWord.getText()).toLowerCase();
+                if (WC.checkWord(W, ((String) TWord.getText()).toLowerCase())) {
+                    WORD = ((String) TWord.getText()).toLowerCase();
                     TWord.setText("");
                     LWord.setText(WORD);
                     endGame("WYGRAŁEŚ", W.getWORD());
-                } else{
+                } else {
+                    UsW += (String) TWord.getText() + ", ";
+                    LUsW.setText("Źle: " + UsW);
                     TWord.setText("");
                     miss++;
                 }
             }
-
-            System.out.println("MISS :" + miss);
 
             try {
                 picture.nextPic(miss);
@@ -119,6 +129,7 @@ public class MainWindow extends JFrame implements ActionListener {
         try {
             fontTitle = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Galileo Font.ttf"))).deriveFont(Font.PLAIN, 70);
             fontWord = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Galileo Font.ttf"))).deriveFont(Font.PLAIN, 50);
+            fontUsW = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Galileo Font.ttf"))).deriveFont(Font.PLAIN, 20);
         } catch(IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -134,6 +145,8 @@ public class MainWindow extends JFrame implements ActionListener {
             this.WORD = WC.setWord(W);
             LWord.setText(this.WORD);
             this.miss = 0;
+            LUsW.setText("");
+            UsW = "";
 
             try {
                 picture.nextPic(miss);
