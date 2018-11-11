@@ -35,28 +35,28 @@ public class MainWindow extends JFrame implements ActionListener {
 
         this.WORD = WC.setWord(W);
 
-        System.out.println(W.getLength());
-
         setSize(1000, 600);
         setTitle("Shape Generator");
         setLayout(null);
 
         LTitle = new JLabel("Wisielec 2.0");
         LTitle.setFont(fontTitle);
-        LTitle.setBounds(60,30,600,60);
+        LTitle.setBounds(60,30,600,90);
         add(LTitle);
 
         LWord = new JLabel(WORD);
         LWord.setFont(fontWord);
-        LWord.setBounds(30,120,600,60);
+        LWord.setBounds(70,180,600,70);
         add(LWord);
 
         TWord = new JTextField(30);
-        TWord.setBounds(60,300,100,20);
+        TWord.setFont(fontWord);
+        TWord.setBounds(60,300,250,60);
         add(TWord);
 
-        BCheck = new JButton("Ustaw");
-        BCheck.setBounds(60,400,100,40);
+        BCheck = new JButton("Sprawdź");
+        BCheck.setFont(fontWord);
+        BCheck.setBounds(60,360,250,70);
         add(BCheck);
         BCheck.addActionListener(this);
 
@@ -117,8 +117,8 @@ public class MainWindow extends JFrame implements ActionListener {
 
     private void setFont() {
         try {
-            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Rise & Shine.ttf"))).deriveFont(Font.PLAIN, 50);
-            fontWord = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Rise & Shine.ttf"))).deriveFont(Font.PLAIN, 30);
+            fontTitle = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Galileo Font.ttf"))).deriveFont(Font.PLAIN, 70);
+            fontWord = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/main/resources/Fonts/Galileo Font.ttf"))).deriveFont(Font.PLAIN, 50);
         } catch(IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -143,8 +143,6 @@ public class MainWindow extends JFrame implements ActionListener {
         } else {
             System.exit(0);
         }
-
-
     }
 
 }
